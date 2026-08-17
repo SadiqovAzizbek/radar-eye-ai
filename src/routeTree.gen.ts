@@ -13,7 +13,10 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ShellRouteImport } from './routes/_shell'
 import { Route as ShellDashboardRouteImport } from './routes/_shell.dashboard'
 import { Route as ShellDetectionsRouteImport } from './routes/_shell.detections'
+import { Route as ShellHardwareRouteImport } from './routes/_shell.hardware'
+import { Route as ShellSettingsRouteImport } from './routes/_shell.settings'
 import { Route as ShellSpectrumRouteImport } from './routes/_shell.spectrum'
+import { Route as ShellSystemRouteImport } from './routes/_shell.system'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -34,9 +37,24 @@ const ShellDetectionsRoute = ShellDetectionsRouteImport.update({
   path: '/detections',
   getParentRoute: () => ShellRoute,
 } as any)
+const ShellHardwareRoute = ShellHardwareRouteImport.update({
+  id: '/hardware',
+  path: '/hardware',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellSettingsRoute = ShellSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => ShellRoute,
+} as any)
 const ShellSpectrumRoute = ShellSpectrumRouteImport.update({
   id: '/spectrum',
   path: '/spectrum',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellSystemRoute = ShellSystemRouteImport.update({
+  id: '/system',
+  path: '/system',
   getParentRoute: () => ShellRoute,
 } as any)
 
@@ -44,13 +62,19 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof ShellDashboardRoute
   '/detections': typeof ShellDetectionsRoute
+  '/hardware': typeof ShellHardwareRoute
+  '/settings': typeof ShellSettingsRoute
   '/spectrum': typeof ShellSpectrumRoute
+  '/system': typeof ShellSystemRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof ShellDashboardRoute
   '/detections': typeof ShellDetectionsRoute
+  '/hardware': typeof ShellHardwareRoute
+  '/settings': typeof ShellSettingsRoute
   '/spectrum': typeof ShellSpectrumRoute
+  '/system': typeof ShellSystemRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -58,20 +82,40 @@ export interface FileRoutesById {
   '/_shell': typeof ShellRouteWithChildren
   '/_shell/dashboard': typeof ShellDashboardRoute
   '/_shell/detections': typeof ShellDetectionsRoute
+  '/_shell/hardware': typeof ShellHardwareRoute
+  '/_shell/settings': typeof ShellSettingsRoute
   '/_shell/spectrum': typeof ShellSpectrumRoute
+  '/_shell/system': typeof ShellSystemRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/detections' | '/spectrum'
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/detections'
+    | '/hardware'
+    | '/settings'
+    | '/spectrum'
+    | '/system'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/detections' | '/spectrum'
+  to:
+    | '/'
+    | '/dashboard'
+    | '/detections'
+    | '/hardware'
+    | '/settings'
+    | '/spectrum'
+    | '/system'
   id:
     | '__root__'
     | '/'
     | '/_shell'
     | '/_shell/dashboard'
     | '/_shell/detections'
+    | '/_shell/hardware'
+    | '/_shell/settings'
     | '/_shell/spectrum'
+    | '/_shell/system'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -109,11 +153,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShellDetectionsRouteImport
       parentRoute: typeof ShellRoute
     }
+    '/_shell/hardware': {
+      id: '/_shell/hardware'
+      path: '/hardware'
+      fullPath: '/hardware'
+      preLoaderRoute: typeof ShellHardwareRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/settings': {
+      id: '/_shell/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof ShellSettingsRouteImport
+      parentRoute: typeof ShellRoute
+    }
     '/_shell/spectrum': {
       id: '/_shell/spectrum'
       path: '/spectrum'
       fullPath: '/spectrum'
       preLoaderRoute: typeof ShellSpectrumRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/system': {
+      id: '/_shell/system'
+      path: '/system'
+      fullPath: '/system'
+      preLoaderRoute: typeof ShellSystemRouteImport
       parentRoute: typeof ShellRoute
     }
   }
@@ -122,13 +187,19 @@ declare module '@tanstack/react-router' {
 interface ShellRouteChildren {
   ShellDashboardRoute: typeof ShellDashboardRoute
   ShellDetectionsRoute: typeof ShellDetectionsRoute
+  ShellHardwareRoute: typeof ShellHardwareRoute
+  ShellSettingsRoute: typeof ShellSettingsRoute
   ShellSpectrumRoute: typeof ShellSpectrumRoute
+  ShellSystemRoute: typeof ShellSystemRoute
 }
 
 const ShellRouteChildren: ShellRouteChildren = {
   ShellDashboardRoute: ShellDashboardRoute,
   ShellDetectionsRoute: ShellDetectionsRoute,
+  ShellHardwareRoute: ShellHardwareRoute,
+  ShellSettingsRoute: ShellSettingsRoute,
   ShellSpectrumRoute: ShellSpectrumRoute,
+  ShellSystemRoute: ShellSystemRoute,
 }
 
 const ShellRouteWithChildren = ShellRoute._addFileChildren(ShellRouteChildren)
