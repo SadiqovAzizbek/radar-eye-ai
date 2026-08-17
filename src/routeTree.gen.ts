@@ -17,6 +17,10 @@ import { Route as ShellHardwareRouteImport } from './routes/_shell.hardware'
 import { Route as ShellSettingsRouteImport } from './routes/_shell.settings'
 import { Route as ShellSpectrumRouteImport } from './routes/_shell.spectrum'
 import { Route as ShellSystemRouteImport } from './routes/_shell.system'
+import { Route as ApiDetectionsRouteImport } from './routes/api/detections'
+import { Route as ApiSpectrumRouteImport } from './routes/api/spectrum'
+import { Route as ApiStatusRouteImport } from './routes/api/status'
+import { Route as ApiSystemRouteImport } from './routes/api/system'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -57,6 +61,26 @@ const ShellSystemRoute = ShellSystemRouteImport.update({
   path: '/system',
   getParentRoute: () => ShellRoute,
 } as any)
+const ApiDetectionsRoute = ApiDetectionsRouteImport.update({
+  id: '/api/detections',
+  path: '/api/detections',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiSpectrumRoute = ApiSpectrumRouteImport.update({
+  id: '/api/spectrum',
+  path: '/api/spectrum',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiStatusRoute = ApiStatusRouteImport.update({
+  id: '/api/status',
+  path: '/api/status',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiSystemRoute = ApiSystemRouteImport.update({
+  id: '/api/system',
+  path: '/api/system',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -66,6 +90,10 @@ export interface FileRoutesByFullPath {
   '/settings': typeof ShellSettingsRoute
   '/spectrum': typeof ShellSpectrumRoute
   '/system': typeof ShellSystemRoute
+  '/api/detections': typeof ApiDetectionsRoute
+  '/api/spectrum': typeof ApiSpectrumRoute
+  '/api/status': typeof ApiStatusRoute
+  '/api/system': typeof ApiSystemRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -75,6 +103,10 @@ export interface FileRoutesByTo {
   '/settings': typeof ShellSettingsRoute
   '/spectrum': typeof ShellSpectrumRoute
   '/system': typeof ShellSystemRoute
+  '/api/detections': typeof ApiDetectionsRoute
+  '/api/spectrum': typeof ApiSpectrumRoute
+  '/api/status': typeof ApiStatusRoute
+  '/api/system': typeof ApiSystemRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -86,6 +118,10 @@ export interface FileRoutesById {
   '/_shell/settings': typeof ShellSettingsRoute
   '/_shell/spectrum': typeof ShellSpectrumRoute
   '/_shell/system': typeof ShellSystemRoute
+  '/api/detections': typeof ApiDetectionsRoute
+  '/api/spectrum': typeof ApiSpectrumRoute
+  '/api/status': typeof ApiStatusRoute
+  '/api/system': typeof ApiSystemRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -97,6 +133,10 @@ export interface FileRouteTypes {
     | '/settings'
     | '/spectrum'
     | '/system'
+    | '/api/detections'
+    | '/api/spectrum'
+    | '/api/status'
+    | '/api/system'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -106,6 +146,10 @@ export interface FileRouteTypes {
     | '/settings'
     | '/spectrum'
     | '/system'
+    | '/api/detections'
+    | '/api/spectrum'
+    | '/api/status'
+    | '/api/system'
   id:
     | '__root__'
     | '/'
@@ -116,11 +160,19 @@ export interface FileRouteTypes {
     | '/_shell/settings'
     | '/_shell/spectrum'
     | '/_shell/system'
+    | '/api/detections'
+    | '/api/spectrum'
+    | '/api/status'
+    | '/api/system'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ShellRoute: typeof ShellRouteWithChildren
+  ApiDetectionsRoute: typeof ApiDetectionsRoute
+  ApiSpectrumRoute: typeof ApiSpectrumRoute
+  ApiStatusRoute: typeof ApiStatusRoute
+  ApiSystemRoute: typeof ApiSystemRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -181,6 +233,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShellSystemRouteImport
       parentRoute: typeof ShellRoute
     }
+    '/api/detections': {
+      id: '/api/detections'
+      path: '/api/detections'
+      fullPath: '/api/detections'
+      preLoaderRoute: typeof ApiDetectionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/spectrum': {
+      id: '/api/spectrum'
+      path: '/api/spectrum'
+      fullPath: '/api/spectrum'
+      preLoaderRoute: typeof ApiSpectrumRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/status': {
+      id: '/api/status'
+      path: '/api/status'
+      fullPath: '/api/status'
+      preLoaderRoute: typeof ApiStatusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/system': {
+      id: '/api/system'
+      path: '/api/system'
+      fullPath: '/api/system'
+      preLoaderRoute: typeof ApiSystemRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -207,6 +287,10 @@ const ShellRouteWithChildren = ShellRoute._addFileChildren(ShellRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ShellRoute: ShellRouteWithChildren,
+  ApiDetectionsRoute: ApiDetectionsRoute,
+  ApiSpectrumRoute: ApiSpectrumRoute,
+  ApiStatusRoute: ApiStatusRoute,
+  ApiSystemRoute: ApiSystemRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
